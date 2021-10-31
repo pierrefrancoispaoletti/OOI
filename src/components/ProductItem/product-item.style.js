@@ -17,8 +17,9 @@ export const ProductItemContainer = styled.article`
   margin-left: 16px;
   margin-right: 16px;
   border-radius: 50px;
+  box-shadow: 2px 4px 6px 3px rgba(0, 0, 0, 0.2);
   &:not(:last-child) {
-    margin-bottom: 6px;
+    margin-bottom: 16px;
   }
 `;
 
@@ -29,9 +30,12 @@ export const ProductTitleAndPriceContainer = styled.div`
   align-items: center;
   width: 100%;
   margin-bottom: 8px;
-  @media (max-width: 400px) {
+  @media (max-width: 450px) {
     justify-content: center;
     text-align: center;
+    :first-child {
+      margin-bottom: 20px;
+    }
   }
 `;
 

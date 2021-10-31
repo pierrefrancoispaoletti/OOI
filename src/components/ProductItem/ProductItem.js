@@ -20,7 +20,7 @@ const Productitem = ({ ...props }) => {
       <ProductTitleAndPriceContainer>
         <TitleContainer>
           <TitleElement>{`${title} ${
-            contenant ? "( " + contenant + " )" + " cl" : ""
+            contenant ? "(" + contenant + ")cl" : ""
           }`}</TitleElement>
         </TitleContainer>
         <PriceContainer>
