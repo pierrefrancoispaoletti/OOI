@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { randomColor } from "../../assets/coolors.styles";
 
 export const HeaderContainer = styled.header`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;

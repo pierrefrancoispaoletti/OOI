@@ -8,7 +8,7 @@ const Productslist = ({ getObjectProperties, category }) => {
     <ProductsListContainer>
       <PageTitleItem>{category}</PageTitleItem>
       {getObjectProperties().map((p) => (
-        <Productitem key={p.key} {...p} />
+        <Productitem key={p.key} item={p} />
       ))}
     </ProductsListContainer>
   );

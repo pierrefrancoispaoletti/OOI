@@ -33,14 +33,14 @@ export const ProductTitleAndPriceContainer = styled.div`
   @media (max-width: 450px) {
     justify-content: center;
     text-align: center;
-    :first-child {
-      margin-bottom: 20px;
-    }
   }
 `;
 
 export const TitleContainer = styled.div`
   ${FieldNormalisation}
+  @media (max-width: 450px) {
+    margin-bottom: 12px;
+  }
 `;
 
 export const TitleElement = styled.h4`
@@ -50,7 +50,7 @@ export const TitleElement = styled.h4`
 
 export const PriceContainer = styled.div`
   ${FieldNormalisation}
-  @media (max-width: 400px) {
+  @media (max-width: 450px) {
     text-align: center;
   }
 `;
@@ -63,7 +63,7 @@ export const DescriptionContainer = styled.div`
   align-self: flex-start;
   margin-bottom: 15px;
   ${FieldNormalisation}
-  @media (max-width: 400px) {
+  @media (max-width: 450px) {
     text-align: center;
   }
 `;

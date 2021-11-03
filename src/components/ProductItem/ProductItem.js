@@ -1,7 +1,9 @@
 import { faPlus } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { connect } from "react-redux";
 import ButtonElement from "../ButtonElement/ButtonElement";
+import { addItemToCart } from "../../redux/reducers/cart/cart-actions";
 import {
   DescriptionContainer,
   DescriptionElement,
@@ -13,8 +15,8 @@ import {
   TitleElement,
 } from "./product-item.style";
 
-const Productitem = ({ ...props }) => {
-  const { title, contenant, price, ingredients } = props;
+const Productitem = ({ item, addItemToCart }) => {
+  const { title, contenant, price, ingredients } = item;
   return (
     <ProductItemContainer>
       <ProductTitleAndPriceContainer>
@@ -34,7 +36,7 @@ const Productitem = ({ ...props }) => {
           <DescriptionElement>{ingredients}</DescriptionElement>
         </DescriptionContainer>
       )}
-      <ButtonElement type="button" circular>
+      <ButtonElement type="button" circular onClick={() => addItemToCart(item)}>
         <FontAwesomeIcon icon={faPlus} size="2x" pull="left" />
         <span>Ajouter</span>
       </ButtonElement>
@@ -42,4 +44,8 @@ const Productitem = ({ ...props }) => {
   );
 };
 
-export default Productitem;
+const mapDispatchToProps = (dispatch) => ({
+  addItemToCart: (item) => dispatch(addItemToCart(item)),
+});
+
+export default connect(null, mapDispatchToProps)(Productitem);

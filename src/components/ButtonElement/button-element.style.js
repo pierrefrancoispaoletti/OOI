@@ -59,6 +59,9 @@ export const ButtonContainer = styled.button`
   text-transform: uppercase;
   font-size: 1.3em;
   padding: 0.8em;
+  @media (max-width: 350px) {
+    font-size: 1em;
+  }
   ${ButtonFluid}
   ${ButtonCircular}
   ${GetButtonStyle}
