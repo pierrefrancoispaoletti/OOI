@@ -1,7 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
-
-import { createStructuredSelector } from "reselect";
+import { useSelector } from "react-redux";
 import {
   selectCartHidden,
   selectCartItems,
@@ -16,7 +14,10 @@ import {
   TotalContainer,
 } from "./cart-drop-down-element.style";
 
-const CartDromDownElement = ({ cart, hidden, total }) => {
+const CartDromDownElement = () => {
+  const cart = useSelector(selectCartItems);
+  const hidden = useSelector(selectCartHidden);
+  const total = useSelector(selectCartTotal);
   return (
     <CartDropDownContainer hidden={hidden}>
       {cart.map((item) => (
@@ -36,10 +37,4 @@ const CartDromDownElement = ({ cart, hidden, total }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  cart: selectCartItems,
-  hidden: selectCartHidden,
-  total: selectCartTotal,
-});
-
-export default connect(mapStateToProps)(CartDromDownElement);
+export default CartDromDownElement;

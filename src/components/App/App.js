@@ -1,7 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { createStructuredSelector } from "reselect";
 import { selectUserObject } from "../../redux/reducers/user/user-selectors";
 
 import { Route, Switch } from "react-router";
@@ -17,7 +16,8 @@ import Zoom from "react-reveal/Zoom";
 
 import { AppContainer } from "./app.style";
 
-const App = ({ user }) => {
+const App = () => {
+  const user = useSelector(selectUserObject);
   return (
     <AppContainer>
       <Appbar />
@@ -59,10 +59,5 @@ const App = ({ user }) => {
     </AppContainer>
   );
 };
-const mapStateToProps = createStructuredSelector({
-  user: selectUserObject,
-});
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

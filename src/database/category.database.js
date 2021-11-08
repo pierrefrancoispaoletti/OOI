@@ -1,10 +1,7 @@
 import axios from "axios";
+import { getProducts } from "../redux/reducers/products/products-actions";
 
-export const getProductsByCategory = async (
-  category,
-  productsFunc,
-  setLoading
-) => {
+export const getProductsByCategory = async (category, dispatch, setLoading) => {
   setLoading(true);
   try {
     const response = await axios({
@@ -15,7 +12,7 @@ export const getProductsByCategory = async (
 
     if (response) {
       setLoading(false);
-      productsFunc(data.category);
+      dispatch(getProducts(data.category));
     }
   } catch (error) {
     setLoading(false);

@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   addItemToCart,
   clearItemFromCart,
@@ -23,34 +23,29 @@ import {
   TitleElement,
 } from "./cart-item.style";
 
-const CartItem = ({ item, addItemToCart, removeItemFromCart, removeItem }) => {
+const CartItem = ({ item }) => {
   const { title, quantity } = item;
+  const dispatch = useDispatch();
   return (
     <CartItemContainer>
       <TitleElement>{title}</TitleElement>
       <QuantityContainer>
-        <CustomIcon minus onClick={() => removeItem(item)}>
+        <CustomIcon minus onClick={() => dispatch(removeItem(item))}>
           <FontAwesomeIcon icon={faMinusCircle} size="2x" />
         </CustomIcon>
         <PriceElement>{quantity}</PriceElement>{" "}
-        <CustomIcon plus onClick={() => addItemToCart(item)}>
+        <CustomIcon plus onClick={() => dispatch(addItemToCart(item))}>
           <FontAwesomeIcon icon={faPlusCircle} size="2x" />{" "}
         </CustomIcon>
       </QuantityContainer>
       <PriceElement>
         {computePriceWithQuantity(item)} <small>€</small>
       </PriceElement>
-      <CustomIcon classic onClick={() => removeItemFromCart(item)}>
+      <CustomIcon classic onClick={() => dispatch(clearItemFromCart(item))}>
         <FontAwesomeIcon icon={faTrashAlt} size="2x" />
       </CustomIcon>
     </CartItemContainer>
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addItemToCart: (item) => dispatch(addItemToCart(item)),
-  removeItemFromCart: (item) => dispatch(clearItemFromCart(item)),
-  removeItem: (item) => dispatch(removeItem(item)),
-});
-
-export default connect(null, mapDispatchToProps)(CartItem);
+export default CartItem;

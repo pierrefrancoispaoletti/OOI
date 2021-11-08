@@ -1,7 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import { toggleCartHidden } from "../../redux/reducers/cart/cart-actions";
 import { deconnectUser } from "../../redux/reducers/user/user-actions";
+import { selectCartItemsCount } from "../../redux/reducers/cart/cart-selectors";
+import { selectUserObject } from "../../redux/reducers/user/user-selectors";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,10 +15,6 @@ import {
   faUser,
 } from "@fortawesome/pro-light-svg-icons";
 
-import { createStructuredSelector } from "reselect";
-import { selectCartItemsCount } from "../../redux/reducers/cart/cart-selectors";
-import { selectUserObject } from "../../redux/reducers/user/user-selectors";
-
 import { Link } from "react-router-dom";
 import ButtonElement from "../ButtonElement/ButtonElement";
 import CartDropDownElement from "../DropDownElement/CartDropDownElement";
@@ -24,7 +23,10 @@ import Logo from "../../assets/logoOOI.png";
 
 import { HeaderContainer, LinkItem, LinksContainer } from "./appbar.style";
 
-const Appbar = ({ cartItemCount, toggleCart, user, deconnectUser }) => {
+const Appbar = () => {
+  const user = useSelector(selectUserObject);
+  const cartItemCount = useSelector(selectCartItemsCount);
+  const dispatch = useDispatch();
   return (
     <HeaderContainer>
       <Link to="/">
@@ -36,7 +38,7 @@ const Appbar = ({ cartItemCount, toggleCart, user, deconnectUser }) => {
             circular
             inverted
             type="button"
-            onClick={() => deconnectUser()}
+            onClick={() => dispatch(deconnectUser())}
           >
             <FontAwesomeIcon icon={faDoorOpen} size="2x" />
           </ButtonElement>
@@ -55,7 +57,11 @@ const Appbar = ({ cartItemCount, toggleCart, user, deconnectUser }) => {
             </LinkItem>
           </>
         )}
-        <ButtonElement circular type="button" onClick={() => toggleCart()}>
+        <ButtonElement
+          circular
+          type="button"
+          onClick={() => dispatch(toggleCartHidden())}
+        >
           <FontAwesomeIcon icon={faShoppingBasket} size="2x" />
           {cartItemCount > 0 && <BadgeElement>{cartItemCount}</BadgeElement>}
         </ButtonElement>
@@ -65,14 +71,4 @@ const Appbar = ({ cartItemCount, toggleCart, user, deconnectUser }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  cartItemCount: selectCartItemsCount,
-  user: selectUserObject,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  toggleCart: () => dispatch(toggleCartHidden()),
-  deconnectUser: () => dispatch(deconnectUser()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Appbar);
+export default Appbar;

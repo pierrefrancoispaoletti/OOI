@@ -1,8 +1,9 @@
 import Axios from "axios";
+import { connectUser } from "../redux/reducers/user/user-actions";
 
 export const logInWithUserCredentials = async (
   credentials,
-  connectFunction,
+  dispatch,
   setLoading
 ) => {
   setLoading(true);
@@ -17,7 +18,7 @@ export const logInWithUserCredentials = async (
     } = response;
     if (response) {
       setLoading(false);
-      connectFunction(token, message);
+      dispatch(connectUser(token, message));
     }
   } catch (error) {
     setLoading(false);

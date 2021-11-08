@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { connectUser } from "../../redux/reducers/user/user-actions";
+import { useDispatch } from "react-redux";
 import { logInWithUserCredentials } from "../../database/user.database";
 
 import ButtonElement from "../../components/ButtonElement/ButtonElement";
@@ -12,6 +11,7 @@ import WithLoader from "../../components/WithLoader/WithLoader";
 import { FormContainer, SignInContainer } from "./sign-in-page.style";
 
 const SignInPage = ({ connectUser }) => {
+  const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -25,7 +25,7 @@ const SignInPage = ({ connectUser }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    logInWithUserCredentials(credentials, connectUser, setLoading);
+    logInWithUserCredentials(credentials, dispatch, setLoading);
   };
   return (
     <SignInContainer>
@@ -59,10 +59,4 @@ const SignInPage = ({ connectUser }) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({});
-
-const mapDispatchToProps = (dispatch) => ({
-  connectUser: (token, message) => dispatch(connectUser(token, message)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);
+export default SignInPage;
