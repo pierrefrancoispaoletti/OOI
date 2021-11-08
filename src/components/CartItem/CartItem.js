@@ -1,9 +1,3 @@
-import {
-  faMinusCircle,
-  faPlusCircle,
-  faTrashAlt,
-} from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { connect } from "react-redux";
 import {
@@ -11,7 +5,16 @@ import {
   clearItemFromCart,
   removeItem,
 } from "../../redux/reducers/cart/cart-actions";
+
 import { computePriceWithQuantity } from "../../redux/reducers/cart/cart-utils";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMinusCircle,
+  faPlusCircle,
+  faTrashAlt,
+} from "@fortawesome/pro-light-svg-icons";
+
 import {
   CartItemContainer,
   CustomIcon,

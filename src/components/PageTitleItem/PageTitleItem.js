@@ -1,4 +1,5 @@
 import React from "react";
+
 import { PageTitleStyle } from "./page-title-item.style";
 
 const PageTitleItem = ({ children }) => {

@@ -1,22 +1,36 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { connectUser } from "../../redux/reducers/user/user-actions";
+import { logInWithUserCredentials } from "../../database/user.database";
+
 import ButtonElement from "../../components/ButtonElement/ButtonElement";
 import FormFieldItem from "../../components/FormFieldItem/FormFieldItem";
-import { FormContainer, SignInContainer } from "./sign-in-page.style";
 import PageTitleItem from "../../components/PageTitleItem/PageTitleItem";
 
-const SignInPage = () => {
+import WithLoader from "../../components/WithLoader/WithLoader";
+
+import { FormContainer, SignInContainer } from "./sign-in-page.style";
+
+const SignInPage = ({ connectUser }) => {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    logInWithUserCredentials(credentials, connectUser, setLoading);
+  };
   return (
     <SignInContainer>
       <PageTitleItem>Connexion</PageTitleItem>
-      <FormContainer>
+      <FormContainer onSubmit={handleSubmit}>
         <FormFieldItem
           handleChange={handleChange}
           label="E-Mail"
@@ -33,10 +47,22 @@ const SignInPage = () => {
           name="password"
           value={credentials.password}
         />
-        <ButtonElement type="submit">Se Connecter</ButtonElement>
+        {loading ? (
+          <WithLoader />
+        ) : (
+          <ButtonElement disabled={loading} type="submit">
+            Se Connecter
+          </ButtonElement>
+        )}
       </FormContainer>
     </SignInContainer>
   );
 };
 
-export default SignInPage;
+const mapStateToProps = (state, ownProps) => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+  connectUser: (token, message) => dispatch(connectUser(token, message)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);

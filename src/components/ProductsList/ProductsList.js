@@ -1,6 +1,8 @@
 import React from "react";
+
 import Productitem from "../ProductItem/ProductItem";
 import PageTitleItem from "../PageTitleItem/PageTitleItem";
+
 import { ProductsListContainer } from "./products-list.style";
 
 const Productslist = ({ getObjectProperties, category }) => {
@@ -8,7 +10,7 @@ const Productslist = ({ getObjectProperties, category }) => {
     <ProductsListContainer>
       <PageTitleItem>{category}</PageTitleItem>
       {getObjectProperties().map((p) => (
-        <Productitem key={p.key} item={p} />
+        <Productitem key={p._id} item={p} />
       ))}
     </ProductsListContainer>
   );

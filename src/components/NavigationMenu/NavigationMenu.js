@@ -1,6 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { categories } from "../../data/categories/categories";
+
 import { MenuContainer, MenuElement } from "./navigation-menu.style";
 
 const NavigationMenu = () => {

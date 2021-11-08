@@ -1,9 +1,11 @@
-import { faPlus } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { connect } from "react-redux";
-import ButtonElement from "../ButtonElement/ButtonElement";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addItemToCart } from "../../redux/reducers/cart/cart-actions";
+
+import { faPlus } from "@fortawesome/pro-light-svg-icons";
+import ButtonElement from "../ButtonElement/ButtonElement";
+
 import {
   DescriptionContainer,
   DescriptionElement,

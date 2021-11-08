@@ -8,10 +8,12 @@ export const CartDropDownContainer = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
+  border-radius: 0 0 50px 50px;
   background: white;
-  display: ${(props) => (props.hidden ? "none" : "")};
+  visibility: ${(props) => (props.hidden ? "hidden" : "visible")};
   padding: 2em;
   line-height: 1.5;
+  height: auto;
 `;
 
 export const TotalContainer = styled.div`

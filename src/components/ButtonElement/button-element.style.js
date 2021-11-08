@@ -24,7 +24,13 @@ const ButtonStyleInverted = css`
   }
 `;
 const ButtonStyleCircular = css`
-  border-radius: 100px;
+  color: black;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border-radius: 50px;
+  padding: 1rem;
+  border: inherit;
 `;
 
 const ButtonStyleFluid = css`
@@ -58,7 +64,7 @@ export const ButtonContainer = styled.button`
   text-align: center;
   text-transform: uppercase;
   font-size: 1.3em;
-  padding: 0.8em;
+  padding: 0.5em;
   @media (max-width: 350px) {
     font-size: 1em;
   }
