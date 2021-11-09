@@ -1,5 +1,5 @@
 import axios from "axios";
-import { editProduct } from "../redux/reducers/products/products-actions";
+import { getProductsByCategory } from "./category.database";
 
 export const editProductRequest = async (product, dispatch, setLoading) => {
   setLoading(true);
@@ -11,9 +11,8 @@ export const editProductRequest = async (product, dispatch, setLoading) => {
     });
 
     if (response) {
-      const { data } = response;
       setLoading(false);
-      dispatch(editProduct(data.newProduct));
+      getProductsByCategory(product.category, dispatch, setLoading);
     }
   } catch (error) {
     setLoading(false);

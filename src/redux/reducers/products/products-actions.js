@@ -5,7 +5,7 @@ export const getProducts = (category) => ({
   payload: category,
 });
 
-export const editProduct = (product) => ({
+export const editProduct = (category) => ({
   type: ProductsActionTypes.EDIT_PRODUCT,
-  payload: product,
+  payload: category,
 });

@@ -1,17 +1,17 @@
 export const updateProductInCategory = (category, product) => {
-  const { title, ...otherProps } = product;
+  // let prevObjectValues = Object.values(category[product.category]);
 
-  let prevObjectValues = Object.values(category[product.category]);
+  // let index = prevObjectValues.findIndex((obj) => obj._id === product._id);
 
-  let index = prevObjectValues.findIndex((obj) => obj._id === product._id);
+  // let prevObjectKeys = prevObjectValues[index];
 
-  let prevObjectKeys = prevObjectValues[index];
+  // let newCategoryObject = { ...category };
 
-  let newCategoryObject = { ...category };
+  // let array = Object.entries(category);
 
-  delete newCategoryObject[product.category][prevObjectKeys.title];
+  // delete newCategoryObject[product.category][prevObjectKeys.title];
 
-  newCategoryObject[product.category][title] = { ...otherProps };
+  // newCategoryObject[product.category][product.title] = { ...product };
 
-  return newCategoryObject;
+  return;
 };

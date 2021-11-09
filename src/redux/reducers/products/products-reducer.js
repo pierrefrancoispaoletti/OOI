@@ -15,7 +15,7 @@ const productsReducer = (state = initialState, action) => {
     case ProductsActionTypes.EDIT_PRODUCT:
       return {
         ...state,
-        category: updateProductInCategory(state.category, action.payload),
+        category: action.payload,
       };
     default:
       return state;

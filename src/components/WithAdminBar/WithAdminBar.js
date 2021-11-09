@@ -1,28 +1,47 @@
 import {
+  faCheck,
   faEdit,
   faEye,
   faEyeSlash,
+  faRedo,
   faTrashAlt,
 } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { editProductRequest } from "../../database/products.database";
 import ButtonElement from "../ButtonElement/ButtonElement";
 import {
   ButtonContainer,
+  ButtonsContainer,
   EditModeTagContainer,
   WithAdminContainer,
 } from "./with-admin-style";
 
 const WithAdminBar = (WrappedComponent) => {
   const WithStateComponent = ({ isAdmin, ...otherProps }) => {
-    const {
-      item: { isHidden },
-    } = otherProps;
-    const [editMode, setEditMode] = useState(false);
-    const [isHiddenMode, setIsHiddenMode] = useState(isHidden);
-
+    const { item } = otherProps;
     const dispatch = useDispatch();
+
+    const [loading, setLoading] = useState(false);
+    const [editMode, setEditMode] = useState(false);
+
+    const [editableItem, setEditableItem] = useState({});
+
+    useEffect(() => {
+      setEditableItem({ ...item });
+    }, []);
+
+    const updateProduct = () => {
+      editProductRequest(editableItem, dispatch, setLoading);
+    };
+
+    const toggleHideMode = useCallback(() => {
+      editableItem.isHidden = !editableItem.isHidden;
+      editProductRequest(editableItem, dispatch, setLoading);
+    }, [dispatch, editableItem]);
+
+    console.log(editableItem);
 
     return isAdmin ? (
       <WithAdminContainer editMode={editMode}>
@@ -41,10 +60,12 @@ const WithAdminBar = (WrappedComponent) => {
           </ButtonElement>
           <ButtonElement type="button" circular inverted>
             <FontAwesomeIcon
-              icon={isHiddenMode ? faEye : faEyeSlash}
+              icon={editableItem.isHidden ? faEye : faEyeSlash}
               color="white"
               size="1x"
-              onClick={() => setIsHiddenMode(!isHiddenMode)}
+              onClick={() => {
+                toggleHideMode();
+              }}
             />
           </ButtonElement>
           <ButtonElement type="button" circular inverted>
@@ -54,7 +75,29 @@ const WithAdminBar = (WrappedComponent) => {
         <EditModeTagContainer>
           {editMode ? <span className="tag">MODE ÉDITION ACTIVÉ</span> : ""}
         </EditModeTagContainer>
-        <WrappedComponent editMode={editMode} isAdmin {...otherProps} />
+        <WrappedComponent
+          editMode={editMode}
+          isAdmin
+          setEditableItem={setEditableItem}
+          editableItem={editableItem}
+          {...otherProps}
+        >
+          {editMode && (
+            <ButtonsContainer>
+              <ButtonElement
+                type="button"
+                circular
+                inverted
+                onClick={() => updateProduct()}
+              >
+                <FontAwesomeIcon icon={faCheck} size="1x" color="green" />
+              </ButtonElement>
+              <ButtonElement type="button" circular inverted>
+                <FontAwesomeIcon icon={faRedo} size="1x" color="red" />
+              </ButtonElement>
+            </ButtonsContainer>
+          )}
+        </WrappedComponent>
       </WithAdminContainer>
     ) : (
       <WrappedComponent {...otherProps} />

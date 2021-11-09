@@ -39,3 +39,9 @@ export const EditModeTagContainer = styled.div`
     background-color: green;
   }
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+`;
