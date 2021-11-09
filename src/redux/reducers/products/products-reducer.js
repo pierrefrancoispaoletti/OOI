@@ -1,3 +1,4 @@
+import { updateProductInCategory } from "./product-utils";
 import ProductsActionTypes from "./products-types";
 
 const initialState = {
@@ -10,6 +11,11 @@ const productsReducer = (state = initialState, action) => {
       return {
         ...state,
         category: action.payload,
+      };
+    case ProductsActionTypes.EDIT_PRODUCT:
+      return {
+        ...state,
+        category: updateProductInCategory(state.category, action.payload),
       };
     default:
       return state;

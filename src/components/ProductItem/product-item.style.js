@@ -71,3 +71,9 @@ export const DescriptionContainer = styled.div`
 export const DescriptionElement = styled.p`
   font-size: 1.5em;
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+`;

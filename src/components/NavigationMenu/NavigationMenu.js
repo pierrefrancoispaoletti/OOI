@@ -10,12 +10,12 @@ const NavigationMenu = () => {
   const keys = Object.keys(categories);
   return (
     <MenuContainer>
-      {keys.map((key) => (
-        <MenuElement key={key} to={`/category/${key}`}>
+      {keys.map((category) => (
+        <MenuElement key={category} to={`/category/${category}`}>
           <div className="icon">
-            <FontAwesomeIcon icon={categories[key].icon} size="3x" />
+            <FontAwesomeIcon icon={categories[category].icon} size="3x" />
           </div>
-          <h3>{key.toUpperCase()}</h3>
+          <h3>{category.toUpperCase()}</h3>
         </MenuElement>
       ))}
     </MenuContainer>

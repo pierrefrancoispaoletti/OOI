@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faPlus } from "@fortawesome/pro-light-svg-icons";
+import { faCheck, faPlus, faRedo } from "@fortawesome/pro-light-svg-icons";
 import ButtonElement from "../ButtonElement/ButtonElement";
 import { addItemToCart } from "../../redux/reducers/cart/cart-actions";
 
 import {
+  ButtonsContainer,
   DescriptionContainer,
   DescriptionElement,
   PriceContainer,
@@ -16,27 +17,58 @@ import {
   TitleContainer,
   TitleElement,
 } from "./product-item.style";
+import WithAdminBar from "../WithAdminBar/WithAdminBar";
+import { editProductRequest } from "../../database/products.database";
 
-const Productitem = ({ item }) => {
+const Productitem = ({ item, category, editMode, isAdmin }) => {
   const dispatch = useDispatch();
-  const { title, contenant, price, ingredients } = item;
+  const { title, price, infos, _id, isHidden } = item;
+  const [loading, setLoading] = useState(false);
+  const [editableItem, setEditableItem] = useState({
+    _id,
+    title,
+    price,
+    category,
+    infos,
+    isHidden,
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditableItem({ ...editableItem, [name]: value });
+  };
+  const updateProduct = () => {
+    editProductRequest(editableItem, dispatch, setLoading);
+  };
   return (
-    <ProductItemContainer>
+    <ProductItemContainer
+      style={{ display: isAdmin ? "" : isHidden ? "none" : "" }}
+    >
       <ProductTitleAndPriceContainer>
         <TitleContainer>
-          <TitleElement>{`${title} ${
-            contenant ? "(" + contenant + ")cl" : ""
-          }`}</TitleElement>
+          {!editMode && (
+            <TitleElement>
+              {isHidden ? `CACHÉ: ${title}` : `${title}`}
+            </TitleElement>
+          )}
+          {editMode && (
+            <input
+              type="text"
+              onChange={handleChange}
+              name="title"
+              value={editableItem.title}
+            />
+          )}
         </TitleContainer>
         <PriceContainer>
           <PriceElement>
-            {Number(price).toFixed(2)} <small>€</small>
+            <span>{Number(price).toFixed(2)}</span>
           </PriceElement>
+          <span>€</span>
         </PriceContainer>
       </ProductTitleAndPriceContainer>
-      {ingredients && (
+      {infos && (
         <DescriptionContainer>
-          <DescriptionElement>{ingredients}</DescriptionElement>
+          <DescriptionElement>{infos}</DescriptionElement>
         </DescriptionContainer>
       )}
       <ButtonElement
@@ -47,8 +79,23 @@ const Productitem = ({ item }) => {
         <FontAwesomeIcon icon={faPlus} size="2x" pull="left" />
         <span>Ajouter</span>
       </ButtonElement>
+      {editMode && (
+        <ButtonsContainer>
+          <ButtonElement
+            type="button"
+            circular
+            inverted
+            onClick={() => updateProduct()}
+          >
+            <FontAwesomeIcon icon={faCheck} size="1x" color="green" />
+          </ButtonElement>
+          <ButtonElement type="button" circular inverted>
+            <FontAwesomeIcon icon={faRedo} size="1x" color="red" />
+          </ButtonElement>
+        </ButtonsContainer>
+      )}
     </ProductItemContainer>
   );
 };
 
-export default Productitem;
+export default WithAdminBar(Productitem);

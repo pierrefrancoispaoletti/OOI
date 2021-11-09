@@ -15,7 +15,7 @@ const CategoryPage = () => {
 
   useEffect(() => {
     getProductsByCategory(cat, dispatch, setLoading);
-  }, []);
+  }, [cat, dispatch]);
 
   const getObjectProperties = () => {
     let array = [];
